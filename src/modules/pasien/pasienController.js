@@ -2,7 +2,6 @@
 /* eslint-disable no-restricted-syntax */
 const pasienModel = require("./pasienModel");
 const helperWrapper = require("../../helper/wrapper");
-const { v4: uuidv4 } = require("uuid");
 
 module.exports = {
   getAllPasien: async (req, res) => {
@@ -59,29 +58,31 @@ module.exports = {
 
   postPasien: async (req, res) => {
     try {
+      function generateString(length) {
+        const result = Math.random()
+          .toString(36)
+          .substring(2, length + 2);
+        return result;
+      }
       const {
         kode_rm,
         nama_pasien,
         jenis_kelamin,
         umur,
         alamat,
-        // pengobatan,
         td,
         diagnosa,
-        // therapy,
         bagian,
       } = req.body;
       const setData = {
-        id: uuidv4(),
+        id: "Pas" + "-" + generateString(8),
         kode_rm,
         nama_pasien,
         jenis_kelamin,
         umur,
         alamat,
-        // pengobatan,
         td,
         diagnosa,
-        // therapy,
         bagian,
         CreatedAt: new Date(Date.now()),
       };
@@ -175,5 +176,4 @@ module.exports = {
   //     );
   //   }
   // },
-
 };

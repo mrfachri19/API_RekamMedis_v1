@@ -1,4 +1,3 @@
-const { v4: uuidv4 } = require("uuid");
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const helperWrapper = require("../../helper/wrapper");
@@ -37,7 +36,6 @@ module.exports = {
       const hashPassword = await bcryptjs.hash(password, 10);
 
       const setData = {
-        id: uuidv4(),
         username,
         nama,
         email,
@@ -78,9 +76,6 @@ module.exports = {
     try {
       const { username, email, password } = req.body;
       const checkUser = await authPasienModel.getUserByEmail(email);
-      // const checUsername = await authPasienModel.getUserByUsername(username);
-
-
       // Proses Validasi input form
       if (email.length < 1 || password.length < 1 || username.length < 1) {
         return helperWrapper.response(
